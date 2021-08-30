@@ -1,0 +1,298 @@
+---
+title: "R_Code_2"
+author: "Thilina"
+date: "8/29/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+ITRODUCTION
+A function.in a programming environment,is a set of instructions organized togeter to perform a specific task.
+programer builds a function to avoid repeationg the same task,or reduce complesity.
+
+There are two types of R functions
+   *Built-in R functions
+   *User-Defined functions
+   
+#1)Built-in R functions
+The functions which are already created or defined in programming framework.
+We can see 3 Groups of functions in action.
+ i)Genarla function
+ ii)Math functions
+ iii)statistical function
+ 
+i)Genaral Functions
+
+Functions We used to perform genaral actions
+EX: cbind(),rbind(),sort(),length(),ect..
+
+```{r}
+X<-c(8,4,6,7,2,9,12,3,15,11)
+sort(X)
+length(X)
+```
+ii)Math functions
+
+Functions we used to perform mathametical operations
+EX:  abs(),sqrt(),fractorial()
+```{r}
+abs(-8)
+sqrt(4)
+factorial(5)
+```
+iii)Statistical Functions
+
+Functions we used to perform statistical analysis
+EX: mean(),var(),sd(),median()
+```{r}
+x<-c(8,4,6,7,2,9,12,3,15,11)
+mean(x)
+var(x)
+sd(x)
+median(x)
+```
+
+#2).User Defined Function
+
+An R function is created by using the keyword function. The basic syntax of an R function definition is as follows 
+function_name <- function(arg_1, arg_2, ...) {
+   Function body 
+}
+
+Devlop a function to add two numbers
+```{r}
+function_1<-function(x,y){
+  return(x+y)
+}
+```
+Calling the function
+  Function_name(input value for argument1,input value for agument2,..)
+```{r}
+function_1(2,1)
+```
+
+Functions without arguments
+```{r}
+function_2<-function(){
+  for(i in 1:5){
+    print(factorial(i))
+  }
+}
+```
+```{r}
+function_2()
+```
+
+Function with arguments
+```{r}
+function_3<-function(a,b=4){
+  return(a*b)
+}
+```
+
+
+```{r}
+function_3(8)
+```
+
+SPECIAL NOTE ON FUNCTIONS
+*print the aruments and corresponding default values for a function
+     syntax:args(Function_name)
+```{r}
+args(function_3)
+```
+
+##print the content of a function by typing only function without any brackets
+   syntex:Function_name
+```{r}
+function_3
+```
+
+##Edit a function
+ syntex:Function_name<-edit(Function_name)
+ 
+```{r}
+function_4<-edit(function_3)
+function_4
+```
+
+#Control Structures
+control structures allow you to put some “logic” into your R code, rather than just always executing the same R code every time
+
+1)IF CONDITION
+The take is carried out only if the test expression is returmed as TRUE.If the test 
+expression is false,nothing happens.
+
+syntex: if(test_expression){
+          statement
+        }
+EX:
+```{r}
+values<-1:10
+y<-sample(values,1)
+ if (y<=5){
+   print(paste(y,"Is less thgan or equal 5"))
+ }
+```
+
+IF-ELSE CONDITION
+The if-else combination is probably the most commonly used control structure in R (or perhaps any language). This structure allows you to test a condition and act on it depending on whether it’s true or false
+
+Syntex:if(<condition>) {
+        ## do something
+        } 
+        else {
+        ## do something else
+        }
+Ex:
+```{r}
+val1=9#Creating first variable
+val2=5 #Creating second variable
+if (val1<val2){
+  print("value 2 is greater than value 1")
+}else{
+    print("value 1 is greater than value 2")
+  }
+```
+There is a vec tor equivalent from of the ifelse statement
+ syntex: 
+           ifelse(test_expresson,x,y)
+
+This expression returns a vector.This returned vector has element from X if the 
+corresponding value of test_expression is TRUE or from Y,if the corresponding 
+value of test_expression is FALSE
+```{r}
+a<-c(5,7,2,9,6)
+
+ifelse(a %% 2==0,"even","odd")
+```
+
+IF-ELSE STATEMENT WITH MULTIPLE CONDITIONS(IF-ELSE LADDER)
+when we want to perform various actions based on verious conditions,we can use if-else statement more thane one
+Sintax:
+       if(<condition1>) {
+        ## do something
+        } else if(<condition2>)  {
+        ## do something different
+        } else {
+        ## do something different
+        }
+        
+EX: 
+```{r}
+sing<-function(X){
+  if(X==0){
+    result<-"Zero"
+  }else if(X<0){
+    result<-"Negative"
+  }else {
+    result<-"Positive"
+  }
+  return(result)
+}
+sing(0)
+sing(-8)
+sing(8)
+```
+
+At times,we may face a situation in which we nedda to execute a statement or a group of statements
+(block of codes) multple times.
+This concpt is known as looping and the programming construct which allows the repetition 
+is known as the loop.
+A loop statement allows us to execute a statement or group of statements
+multiple times.
+
+So here we discuss 3 types of loops
+  *for
+  *while
+  *repeat
+When we want to change execution of loops from normal sequence,we use
+  *next
+  *break
+  
+2)For Loop
+For loops are most commonly used for iterating over the elements of an object (list, vector, etc.)
+ Syntex: 
+ for (i in 1:n){
+   statement
+ }
+ 
+EX:
+
+```{r}
+for(i in 1:10){
+  print(i+5)
+}
+```
+
+3)While Loop
+A while loop is used to repeat an statement untill a specific condition is met
+syntex:
+      while(condition){
+      statements
+      }
+EX:
+```{r}
+students<-c("kamal","Nizar","Sachini")
+count=3
+    while(count<10){
+      print(students)
+      count=count+1
+      }
+```
+
+4)Repeat Loop
+A repeat loop is used to iterate over a block of code multiple times.In this loop,
+no condition checked to exit the loop.
+
+To stop repeating the loop,we must put a condition explicity inside the body of the loop
+and use the break statement to exit the loop.
+
+If you failed to do so,it will create an infinite loop.
+Syntax:
+       repeat{
+       statement
+       }
+      
+##Brak Statement     
+A break ststement is used inside a loop(repeat,for,while)to stop the iteration and flow the control outside of the loop.
+
+Syntax of using break statement within an if statement:
+   if(Test_expression){
+    break
+   }
+EX:
+```{r}
+z<-0
+  repeat{
+    print(z)
+    if(z==6){
+      break
+    }
+    z<-z+2
+  }
+   
+```
+##Next Statement
+a next statement is used to skip the current iteration in the loop and move to the next 
+iteration without exiting from the loop itself.
+
+Syntax of using next statement within an if statement:
+ if(test_condition){
+   next
+ }
+Ex:
+```{r}
+x<-1
+ while(x<5){
+   x<-x+1
+   if (x==3){
+     next
+   }
+   print(x)
+ }
+```
+

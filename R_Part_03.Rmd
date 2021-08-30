@@ -1,0 +1,142 @@
+---
+title: "R_Part_3"
+author: "Thilina"
+date: "8/29/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+INSTALLATION
+you can either install the whole "tidyverse" package or "ggplo2" package to create 
+graphics
+Then you have to load the package
+     1.library(tidyverse)
+     2.library(ggplot2)
+```{r}
+library(ggplot2)
+```
+Basic Syntax
+   ggplot(data=<Data>,aes(x=  ,y=  ))+geo_function()
+  
+1.Scater Plot
+```{r}
+data("msleep")
+head(msleep,8)
+```
+How do we plot 'bodywt' againts 'sleeep_total' in a scatter plot using 'ggplot2' 
+package in Rstudio?
+```{r}
+#scattter plot
+
+scatterplot_1<-ggplot(data=msleep,aes(x=bodywt,y=sleep_total))+geom_point()
+scatterplot_1
+```
+#colour
+```{r}
+
+scatterplot_1<-ggplot(data=msleep,aes(x=bodywt,y=sleep_total))+geom_point(col="blue")
+scatterplot_1
+```
+2.Histogram
+```{r}
+set.seed(1234)
+weight_data<-data.frame(sex=factor(rep(c("F","M"),each=200)),weight=round(c(rnorm(200,mean=55,sd=5),rnorm(200,mean=75,sd=3))))
+head(weight_data)
+```
+How do we plot 'aweight' in histogram using 'ggplot2' 
+```{r}
+#Hiistogram
+ggplot(data=weight_data,aes(x=weight))+geom_histogram()
+```
+```{r}
+#Hiistogram 
+#bin width
+#color of margins
+#margin line type
+ggplot(data=weight_data,aes(x=weight))+geom_histogram(binwidth =1,fill="green",color="black",linetype="dashed")
+```
+##for linetype 
+```{r}
+?linetype
+```
+ 
+3.Box Plot
+```{r}
+data("airquality")
+airquality
+
+```
+```{r}
+str(airquality)
+```
+
+How to make box plots for the 'ozone'  readings (for each month separately) using 'ggplot2'
+```{r}
+#convert Monthh into a labeled factor
+airquality$Month=factor(airquality$Month,labels=c("May","Jun","Jul","Aug","Sep"))
+str(airquality)
+```
+
+```{r}
+#basic box plot
+b1<-ggplot(data=airquality,aes(x=Month,y=Ozone))+geom_boxplot(fill="green",col="red",outlier.colour = "blue"
+,outlier.shape =5 )+xlab("Month")+ylab("Mean Ozone Concenration")+ggtitle("Box Plot")
+b1
+```
+```{r}
+#Defferent colurs for box plot
+#possition of legend
+b1<-ggplot(data=airquality,aes(x=Month,y=Ozone,fill=Month))+geom_boxplot(col="red",outlier.colour = "blue"
+,outlier.shape =5 )+xlab("Month")+ylab("Mean Ozone Concenration")+ggtitle("Box Plot")+scale_fill_manual(values=c("orange","red","blue","pink","green"))+theme(legend.position = "top")
+b1
+```
+
+4.Bar chart
+```{r}
+data(mtcars)
+head(mtcars,10)
+str(mtcars)
+```
+How to create bar chart for 'cyl' 
+```{r}
+#Basic bar chart
+ggplot(mtcars,aes(x=as.factor(cyl)))+geom_bar(fill=heat.colors(3),col="black",width=0.5)
+```
+```{r}
+#Basic bar chart colour palat
+ggplot(mtcars,aes(x=as.factor(cyl),fill=as.factor(cyl)))+geom_bar(color="black",width=0.5)+scale_fill_brewer(palette="Dark2")
+```
+
+geom_bar can be used for these occasions also
+```{r}
+data<-data.frame(name=c("A","B","C","D","E"),value=c(7,15,6,14,9))
+data
+```
+```{r}
+ggplot(data,aes(x=name,y=value))+geom_bar(stat="identity")
+```
+
+5.Pie Chart
+```{r}
+#Create the data frame
+data<-data.frame(subject=c("Physics","English","Mathematics","Biology","Chemistry"),
+count=c(75,45,62,95,34))
+data
+```
+
+How to plot above data in a pie chart
+#stat bar char
+```{r}
+ggplot(data,aes(x="",y=count,fill=subject))+geom_bar(stat="identity",width=1)
+```
+```{r}
+#Basic pie chart
+ggplot(data,aes(x="",y=count,fill=subject))+geom_bar(stat="identity",width=1)+coord_polar("y",start=0)
+```
+
+# slide presentation of pie chart
+
+
